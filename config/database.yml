@@ -52,5 +52,5 @@ production:
   <<: *default
   database: charmander_production
   username: charmander
-  password: <%= Rails.application.credentials.gcp[:db_passsword] %>
-  host: "<%= ENV.fetch("DB_SOCKET_DIR") { '/cloudsql' } %>/bao-ke-meng:us-west1:snorlax"
+  password: <%= Rails.application.credentials.gcp[:db_password] %>
+  socket: "<%= ENV.fetch("DB_SOCKET_DIR") { '/cloudsql' } %>/bao-ke-meng:us-west1:snorlax"
