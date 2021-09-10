@@ -4,7 +4,6 @@ on:
     branches: [ master ]
 jobs:
   build-and-deploy:
-    environment: production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,18 +16,12 @@ jobs:
           export_default_credentials: true
       - name: Build docker image
         run: |
-          gcloud builds submit --config ./cloudbuild.yaml \
-          --substitutions \
-          _SERVICE_NAME=${{ secrets.GCP_APPLICATION }},\
-          _INSTANCE_NAME=${{ secrets.GCP_SQL_INSTANCE_NAME }},\
-          _REGION=${{ secrets.GCP_REGION }},\
-          _SECRET_NAME=${{ secrets.GCP_APPLICATION_MASTER_KEY }}
+          gcloud builds submit --config ./cloudbuild.yaml
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@main
         with:
           service: ${{ secrets.GCP_APPLICATION }}
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APPLICATION }}
-      - name: Use Output
-        run: curl "${{ steps.deploy.outputs.url }}"
+          region: us-west1
           
