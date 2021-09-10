@@ -17,7 +17,6 @@ jobs:
       - name: Build docker image
         run: |
           gcloud builds submit --config ./cloudbuild.yaml
-          exit 0
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@main
