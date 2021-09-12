@@ -13,3 +13,4 @@ Turbolinks.start()
 ActiveStorage.start()
 
 import "controllers"
+require("shopify_app")
